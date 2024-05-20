@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarot Score Keeper - Jeu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            transition: background-color 0.3s ease;
+            overflow-y: auto;
+            background-color: #f5f5f5;
+        }
+        body.light-mode {
+            background-color: #f0f0f0;
+        }
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            transition: all 0.3s ease;
+            margin: 20px 10px;
+        }
+        body.dark-mode .container {
+            background-color: #444;
+        }
+        .container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 26px;
+            font-weight: 700;
+        }
+        body.dark-mode .container h1 {
+            color: #fff;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+            font-size: 14px;
+        }
+        body.dark-mode .section label {
+            color: #bbb;
+        }
+        .section select, .section input {
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        .section select:focus, .section input:focus {
+            border-color: #007bff;
+        }
+        body.dark-mode .section select, body.dark-mode .section input {
+            background-color: #666;
+            color: #fff;
+            border-color: #555;
+        }
+        .section button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .section button i {
+            margin-right: 8px;
+        }
+        .section button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .scores {
+            margin-top: 20px;
+            text-align: left;
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        body.dark-mode .scores {
+            background-color: #555;
+            border-color: #444;
+        }
+        .scores h2 {
+            margin: 0;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        body.dark-mode .scores h2 {
+            color: #fff;
+            border-color: #666;
+        }
+        .scores table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .scores th, .scores td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            font-size: 14px;
+        }
+        body.dark-mode .scores th, body.dark-mode .scores td {
+            border-color: #666;
+        }
+        .positive-score {
+            color: green;
+        }
+        .negative-score {
+            color: red;
+        }
+        .footer {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+        .footer button {
+            margin-bottom: 10px;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        .new-game-button {
+            background-color: #28a745;
+        }
+        .new-game-button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+        .back-button {
+            background-color: #dc3545;
+        }
+        .back-button:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+        .stats-button {
+            background-color: #17a2b8;
+        }
+        .stats-button:hover {
+            background-color: #138496;
+            transform: translateY(-2px);
+        }
+        .toggle-theme-button {
+            background-color: #ffc107;
+            color: #333;
+        }
+        .toggle-theme-button:hover {
+            background-color: #e0a800;
+            transform: translateY(-2px);
+        }
+        .notification {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+        }
+        .notification.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .notification.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <div class="container">
+        <h1>Tarot Score Keeper</h1>
+        <div class="section">
+            <label for="contract">Contrat</label>
+            <select id="contract">
+                <option value="60">Garde</option>
+                <option value="120">Garde sans</option>
+                <option value="180">Garde contre</option>
+            </select>
+        </div>
+        <div class="section">
+            <label for="taking_player">Joueur prenant</label>
+            <select id="taking_player">
+                <!-- Les options pour le joueur prenant seront ajoutées ici dynamiquement -->
+            </select>
+        </div>
+        <div id="called_player_section" class="section" style="display: none;">
+            <label for="called_player">Joueur appelé</label>
+            <select id="called_player">
+                <!-- Les options pour le joueur appelé seront ajoutées ici dynamiquement -->
+            </select>
+        </div>
+        <div class="section">
+            <label for="result">Résultat</label>
+            <select id="result">
+                <option value="win">Gagné</option>
+                <option value="lose">Perdu</option>
+            </select>
+        </div>
+        <div class="section">
+            <label for="margin">Marge</label>
+            <input type="number" id="margin" min="0" step="10" value="0">
+        </div>
+        <div class="section">
+            <button onclick="addPoints()"><i class="fas fa-plus"></i> Ajouter des points</button>
+        </div>
+        <div class="scores" id="scores">
+            <h2>Scores</h2>
+            <!-- Les scores seront affichés ici dynamiquement -->
+        </div>
+        <div class="footer">
+            <button class="new-game-button" onclick="resetGame()"><i class="fas fa-redo"></i> Recommencer une nouvelle partie</button>
+            <button class="back-button" onclick="goBackToIndex()"><i class="fas fa-arrow-left"></i> Retour à l'index</button>
+            <button class="stats-button" onclick="goToStats()"><i class="fas fa-chart-bar"></i> Voir les statistiques</button>
+            <button class="toggle-theme-button" onclick="toggleTheme()"><i class="fas fa-adjust"></i> Changer de thème</button>
+        </div>
+        <div class="notification" id="notification"></div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
+

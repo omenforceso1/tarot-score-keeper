@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarot Score Keeper - Statistiques</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            transition: background-color 0.3s ease;
+            overflow-y: auto;
+        }
+        body.light-mode {
+            background-color: #f0f0f0;
+        }
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            max-width: 100%;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        body.dark-mode .container {
+            background-color: #444;
+        }
+        .container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+        }
+        body.dark-mode .container h1 {
+            color: #fff;
+        }
+        .stats {
+            margin-top: 20px;
+            text-align: left;
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        body.dark-mode .stats {
+            background-color: #555;
+            border-color: #444;
+        }
+        .stats h2 {
+            margin: 0;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        body.dark-mode .stats h2 {
+            color: #fff;
+            border-color: #666;
+        }
+        .stats table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .stats th, .stats td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        body.dark-mode .stats th, body.dark-mode .stats td {
+            border-color: #666;
+        }
+        .back-button {
+            background-color: #dc3545;
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: #fff;
+            text-align: center;
+            font-size: 16px;
+        }
+        .back-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <div class="container">
+        <h1>Statistiques des joueurs</h1>
+        <div class="stats" id="stats">
+            <h2>Statistiques</h2>
+            <!-- Les statistiques des joueurs seront affichées ici dynamiquement -->
+        </div>
+        <button class="back-button" onclick="goBackToGame()"><i class="fas fa-arrow-left"></i> Retour au jeu</button>
+    </div>
+    <script src="stats.js"></script>
+</body>
+</html>
